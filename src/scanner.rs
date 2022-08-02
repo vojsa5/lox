@@ -1,16 +1,18 @@
+
 use std::collections::{LinkedList};
-use crate::token::Token;
-use crate::token::token_type::TokenType;
-use crate::token::token_type::TokenType::*;
 use std::str;
 use std::str::FromStr;
+
+use crate::token::Token;
+use crate::token_type::{*};
+use crate::token_type::TokenType::{*};
 
 pub struct Scanner {
     code: String,
     start: usize,
     curr: usize,
     line: i32,
-    pub tokens: LinkedList<Token>,
+    tokens: LinkedList<Token>,
 }
 
 
@@ -57,7 +59,7 @@ impl Scanner {
     }
 
     fn create_token(&mut self, tok: TokenType){
-        self.tokens.push_back(Token::new(tok));
+        self.tokens.push_back(Token::new(tok, self.code.get(self.start..self.curr).unwrap().to_string(), self.line));
     }
 
     fn string(&mut self) {
